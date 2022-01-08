@@ -1,6 +1,7 @@
 {% extends "entries/base.html" %}
 
 {% block content %}
+
 {% for entry in entries %}
 <article>
     <h2>
@@ -14,4 +15,6 @@
     
 </article>
 {% endfor %}
+<h4> <a href="{% url 'entry' %}">Add</a></h4>
+
 {% endblock %}
