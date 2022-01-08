@@ -8,11 +8,11 @@
         {{ entry.date_created|date:'Y-m-d H:i' }}
     </h2>
     <h3>
-        <a href="{% url 'content' entry.id %}">{{ entry.title }}</a> 
+        <a href="{% url 'content' entry.id %}">{{ entry.title }}</a>
 
         </a>
     </h3>
-    
+
 </article>
 {% endfor %}
 <h4> <a href="{% url 'entry' %}">Add</a></h4>
