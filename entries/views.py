@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from . forms import TaskForm
+import entries
 from . models import Entry
 from django.http import HttpResponse
 
@@ -33,8 +35,29 @@ def entry(request):
                 "entries": Entry.objects.all().order_by("-date_created")
             })
         else:
-            return render(request,'entries/newentry.html',{
-                "message":"All fields are required"
+            return render(request, 'entries/newentry.html', {
+                "message": "All fields are required"
             })
 
     return render(request, 'entries/newentry.html')
+
+
+def delete(request, pk_delete):
+    entry = Entry.objects.get(id=pk_delete)
+    entry.delete()
+    return redirect("index")
+
+
+def update(request, pk):
+    entry = Entry.objects.get(id=pk)
+
+    form = TaskForm(instance=entry)
+
+    if request.method == "POST":
+        form = TaskForm(request.POST, instance=entry)
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+
+    return render(request, "entries/update.html", {
+        "task_edit_form": form})

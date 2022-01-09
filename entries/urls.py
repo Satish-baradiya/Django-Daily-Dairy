@@ -5,6 +5,9 @@ import entries
 urlpatterns = [
     path('',views.index,name="index"),
     path('entry/<int:pk_test>/',views.content,name="content"),
-    path('newentry',views.entry,name="entry")
+    path('newentry',views.entry,name="entry"),
+    path('delete/<int:pk_delete>/',views.delete,name="delete"),
+    path('update/<int:pk>/',views.update,name="update"),
+
 
 ]
