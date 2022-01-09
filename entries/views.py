@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-
+from . forms import TaskForm
 import entries
 from . models import Entry
 from django.http import HttpResponse
@@ -48,15 +48,16 @@ def delete(request, pk_delete):
     return redirect("index")
 
 
-def update_entry(request, pk):
-    task = Entry.objects.get(id=pk)
+def update(request, pk):
+    entry = Entry.objects.get(id=pk)
 
-    form = Entry(instance=task)
+    form = TaskForm(instance=entry)
 
     if request.method == "POST":
-        form = Entry(request.POST, instance=task)
+        form = TaskForm(request.POST, instance=entry)
         if form.is_valid():
             form.save()
             return redirect("index")
 
-    return render(request, "update.html", {"task_edit_form": form})
+    return render(request, "entries/update.html", {
+        "task_edit_form": form})
